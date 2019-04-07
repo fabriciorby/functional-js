@@ -48,7 +48,7 @@ class LambdaTest {
         console.log(F, display(F)) //false
         console.log(not, display(not(T))) //false
 
-        console.log(and, display(and(T)(F))); //false
+        console.log(and, display(and(F)(F))); //false
         console.log(and, display(and(T)(T))); //true
         console.log(or, display(or(T)(F))); //true
         console.log(not, display(not(or(T)(F)))); // false
@@ -75,6 +75,36 @@ class LambdaTest {
         console.log(or, display(or(T, F))); //true
         console.log(not, display(not(or(T, F)))); // false
         console.log(not, display(not(and(T, or(T, F))))); //false
+    }
+
+    //if-then-else
+    // if = λp.(λa.(λb. p a b))
+
+    ifThenElse() {
+        test("Exemplo de if-then-else.")
+        const T = a => b => a
+        const F = a => b => b
+        const and = a => b => a(b)(F)
+        const or = a => b => a(T)(b)
+        const not = x => x(F)(T)
+        const If = Condition => Then => Else => Condition(Then)(Else)
+        const isTrue = () => true
+        const isFalse = () => false
+        const First = If(T)(isTrue)(isFalse)
+        const Second = If(F)(isTrue)(isFalse)
+        const Result1 = If(and(T)(T))(isTrue)(isFalse)
+        const Result2 = If(and(T)(F))(isTrue)(isFalse)
+        const Result3 = If(or(F)(T))(isTrue)(isFalse)
+        const Result4 = If(or(F)(F))(isTrue)(isFalse)
+        const Result5 = If(not(or(F)(F)))(isTrue)(isFalse)
+
+        console.log(If, First()) // true
+        console.log(If, Second()) // false
+        console.log(If, Result1()) // true
+        console.log(If, Result2()) // false
+        console.log(If, Result3()) // true
+        console.log(If, Result4()) // false
+        console.log(If, Result5()) // true
     }
 }
 
