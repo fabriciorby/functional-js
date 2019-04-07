@@ -5,3 +5,4 @@ lambda.divisivel()
 lambda.boolean()
 lambda.booleanCurrying()
 lambda.ifThenElse()
+lambda.church();

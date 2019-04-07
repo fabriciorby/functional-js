@@ -31,7 +31,7 @@ class LambdaTest {
         const divisivelPor2 = divisivelPor(2);
         console.log(divisivelPor, divisivelPor(2)(10)); // true
         console.log(divisivelPor, divisivelPor(3)(10)); // false
-        console.log(divisivelPor2, divisivelPor2(11)); //false
+        console.log(divisivelPor2, divisivelPor2(11)); // false
     }
 
     booleanCurrying() {
@@ -109,6 +109,40 @@ class LambdaTest {
         console.log(If, Result5()) // true
         console.log(If, display(If(not(or(F)(F))))) //true
         console.log(If, First.toString())
+    }
+
+    church() {
+        test("Exemplos Numerais de Church")
+        const T = a => b => a
+        const F = a => b => b
+
+        const zero = f => x => x
+        const um = f => x => f(x)
+        const dois = f => x => f(f(x))
+        const tres = f => x => f(f(f(x)))
+        const quatro = f => x => f(f(f(f(x))))
+
+        const SUC = n => f => x => f(n(f)(x))
+        const PRED = n => n(p => z => z(SUC(p(T)))(p(T)))(z => z(zero)(zero))(F)
+
+        const ADD = m => n => n(SUC)(m)
+        const SUB = m => n => n(PRED)(m)
+        const MULT = m => n => n(ADD(m))(zero)
+        const EXP = m => n => n(m)
+
+        // Convert a concrete integer into a church numeral.
+        const int2church = (i) => i === 0 ? zero : SUC(int2church(i - 1))
+
+        // Convert a Church numeral into a concrete integer.
+        const church2int = n => n(x => x + 1)(0);
+
+        console.log(quatro              ,church2int(quatro               ))  // 4
+        console.log(SUC(tres)           ,church2int(SUC(tres)            ))  // 4
+        console.log(PRED(quatro)        ,church2int(PRED(quatro)         ))  // 3
+        console.log(MULT(dois)(quatro)  ,church2int(MULT(dois)(quatro)   ))  // 8
+        console.log(SUB(um)(dois)       ,church2int(SUB(um)(dois)        ))  // 0
+        console.log(EXP(tres)(dois)     ,church2int(EXP(tres)(dois)      ))  // 9
+        console.log(int2church(5)       ,church2int(int2church(5)        ))  // 5
     }
 }
 
