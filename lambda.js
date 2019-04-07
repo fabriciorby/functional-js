@@ -88,6 +88,7 @@ class LambdaTest {
         const or = a => b => a(T)(b)
         const not = x => x(F)(T)
         const If = Condition => Then => Else => Condition(Then)(Else)
+        const display = boolean => boolean(true)(false)
         const isTrue = () => true
         const isFalse = () => false
         const First = If(T)(isTrue)(isFalse)
@@ -105,6 +106,7 @@ class LambdaTest {
         console.log(If, Result3()) // true
         console.log(If, Result4()) // false
         console.log(If, Result5()) // true
+        console.log(If, display(If(not(or(F)(F))))) //true
     }
 }
 
