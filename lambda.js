@@ -91,6 +91,7 @@ class LambdaTest {
         const display = boolean => boolean(true)(false)
         const isTrue = () => true
         const isFalse = () => false
+
         const First = If(T)(isTrue)(isFalse)
         const Second = If(F)(isTrue)(isFalse)
         const Result1 = If(and(T)(T))(isTrue)(isFalse)
@@ -107,6 +108,7 @@ class LambdaTest {
         console.log(If, Result4()) // false
         console.log(If, Result5()) // true
         console.log(If, display(If(not(or(F)(F))))) //true
+        console.log(If, First.toString())
     }
 }
 
